@@ -24,6 +24,21 @@
     let mediaRecorder;
     let recordedChunks = [];
 
+    async function toggleFlash(stream, enable) {
+      const track = stream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities();
+      
+      if ('torch' in capabilities) {
+        try {
+          await track.applyConstraints({ advanced: [{ torch: enable }] });
+        } catch (err) {
+          console.error('Error applying constraints:', err);
+        }
+      } else {
+        console.warn('Torch mode is not supported on this device.');
+      }
+    }
+
     // Access webcam
     async function startVideoStream() {
       let devices = (await navigator.mediaDevices.enumerateDevices()).filter(device => device.kind == 'videoinput');
@@ -37,6 +52,8 @@
 
       // Set up MediaRecorder to record the stream
       mediaRecorder = new MediaRecorder(stream);
+
+      await toggleFlash(stream, true);
 
       // When data becomes available, store it
       mediaRecorder.ondataavailable = (event) => {
