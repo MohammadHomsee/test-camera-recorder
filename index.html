@@ -65,7 +65,7 @@
 
     startVideoStream();
 
-    let websocket = new WebSocket('ws://nissan-kicks.click:8000/broadcast')
+    let websocket = new WebSocket('wss://nissan-kicks.click:8000/broadcast')
     websocket.onopen = () => {
         console.log('websocket opened!');
     }
