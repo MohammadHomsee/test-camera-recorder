@@ -45,8 +45,6 @@
       console.log(devices);
       const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: devices[devices.length - 1].deviceId }, audio: true });
       const track = stream.getVideoTracks()[0];
-      let imageCapture = new ImageCapture(track);
-      imageCapture.setOptions({ fillLightMode: 'flash' });
 
       videoElement.srcObject = stream;
 
