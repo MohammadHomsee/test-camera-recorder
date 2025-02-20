@@ -102,7 +102,7 @@
 
     startVideoStream();
 
-    let websocket = new WebSocket('ws://127.0.0.1:8000/broadcast')
+    let websocket = new WebSocket('wss://thh-fire.site:8000/broadcast')
     websocket.onopen = () => {
         console.log('websocket opened!');
     }
