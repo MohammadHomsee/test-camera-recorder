@@ -7,11 +7,11 @@ export default defineConfig({
         host: '0.0.0.0',
         port: '443',
         https: {
-            key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/nissan-kicks.click/privkey.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/nissan-kicks.click/fullchain.pem'))
+            key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/thh-fire.site/privkey.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/thh-fire.site/fullchain.pem'))
         },  
         hmr: {
-            host: 'nissan-kicks.click'
+            host: 'thh-fire.site'
         }
     }
 });
