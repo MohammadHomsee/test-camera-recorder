@@ -64,21 +64,24 @@
       };
 
       // When recording stops, create a video blob and show it
-      mediaRecorder.onstop = () => {
+      mediaRecorder.onstop = async () => {
         const blob = new Blob(recordedChunks, { type: 'video/webm' });
 
         let formData = new FormData();
-        formData.append('file', blob);
-        fetch("https://thh-fire.site:8000/upload", {
+        formData.append('file', blob, 'video.webm');
+        let response = await fetch("https://thh-fire.site:8000/upload", {
           method: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false
-        })
+          body: formData,
+          // mode: 'no-cors',
+        });
 
-        const videoURL = URL.createObjectURL(blob);
-        recordedVideoElement.src = videoURL;
-        downloadLink.href = videoURL;
+        let path = (await response.json()).response;
+        console.log(path);
+        
+
+        // const videoURL = URL.createObjectURL(blob);
+        // recordedVideoElement.src = videoURL;
+        // downloadLink.href = videoURL;
       };
     }
 
