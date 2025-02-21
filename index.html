@@ -77,7 +77,7 @@
 
         let path = (await response.json()).response;
         console.log(path);
-        
+        websocket.send(path)
 
         // const videoURL = URL.createObjectURL(blob);
         // recordedVideoElement.src = videoURL;
